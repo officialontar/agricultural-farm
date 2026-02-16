@@ -336,49 +336,128 @@
               </div>
             </div>
             <div class="col-lg-6 col-sm-12">
-              <div class="card" >
+              <div class="card">
                 <div class="card-body">
                   <div class="row justify-content-center">
-                    <div class="contact-card">
-                      <h3 class="text-info text-center">Send Message</h3>
-                        <form id="contactForm">
-                          <div class="mb-3">
-                            <label for="name" class="form-label">Full Name *</label>
-                              <input type="text" class="form-control" id="name" placeholder="Enter your full name" />
-                          </div>
-                          <div class="mb-3">
-                            <label for="email" class="form-label">Email Address *</label>
-                            <input type="email" class="form-control" id="email" placeholder="example@domain.com" />
-                          </div>
-                          <div class="mb-3">
-                            <label for="subject" class="form-label">Inquiry Type / Expertise Area *</label>
-                              <select id="subject" class="form-select">
-                                <option value="">Select your concern</option>
-                                <option value="Crop Advice">Crop Advice</option>
-                                <option value="Pest Management">Pest Management</option>
-                                <option value="Soil Fertility">Soil Fertility</option>
-                                <option value="Market Information">Market Information</option>
-                                <option value="Other">Other</option>
-                              </select>
-                          </div>
-                          <div class="mb-3">
-                            <label for="message" class="form-label">Your Message *</label>
-                              <textarea class="form-control" id="message" rows="5" placeholder="Write your question or request..."></textarea>
-                          </div>
-                          <div class="mb-3">
-                            <label for="attachment" class="form-label attachment-label">Optional Attachment (Image/Document)</label>
-                              <input type="file" class="form-control" id="attachment" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" />
-                          </div>
-                            <button type="submit" class="btn btn-success w-100 mt-3">Submit</button>
-                        </form>
+                    <div class="contact-card w-100">
+
+                      <h3 class="text-info text-center mb-4">Send Message</h3>
+
+                      <form id="contactForm"
+                            name="contact"
+                            method="POST"
+                            data-netlify="true"
+                            enctype="multipart/form-data">
+
+                        <!-- Netlify Hidden Field -->
+                        <input type="hidden" name="form-name" value="contact" />
+
+                        <!-- Full Name -->
+                        <div class="mb-3">
+                          <label class="form-label">Full Name *</label>
+                          <input type="text"
+                                id="name"
+                                name="name"
+                                class="form-control"
+                                placeholder="Enter your full name"
+                                required>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                          <label class="form-label">Email Address *</label>
+                          <input type="email"
+                                id="email"
+                                name="email"
+                                class="form-control"
+                                placeholder="example@domain.com"
+                                required>
+                        </div>
+
+                        <!-- Inquiry Type -->
+                        <div class="mb-3">
+                          <label class="form-label">Inquiry Type / Expertise Area *</label>
+                          <select id="subject"
+                                  name="subject"
+                                  class="form-select"
+                                  required>
+                            <option value="">Select your concern</option>
+                            <option value="Crop Advice">Crop Advice</option>
+                            <option value="Pest Management">Pest Management</option>
+                            <option value="Soil Fertility">Soil Fertility</option>
+                            <option value="Market Information">Market Information</option>
+                            <option value="Other">Other</option>
+                          </select>
+                        </div>
+
+                        <!-- Message -->
+                        <div class="mb-3">
+                          <label class="form-label">Your Message *</label>
+                          <textarea id="message"
+                                    name="message"
+                                    class="form-control"
+                                    rows="5"
+                                    placeholder="Write your question or request..."
+                                    required></textarea>
+                        </div>
+
+                        <!-- Attachment -->
+                        <div class="mb-3">
+                          <label class="form-label">Optional Attachment</label>
+                          <input type="file"
+                                id="attachment"
+                                name="attachment"
+                                class="form-control"
+                                accept=".jpg,.jpeg,.png,.pdf,.doc,.docx">
+                        </div>
+
+                        <!-- reCAPTCHA -->
+                        <div class="mb-3 text-center">
+                          <div class="g-recaptcha"
+                              data-sitekey="6Lfx3G0sAAAAAJG-oWZEe0AR9cB7y1V3xVrKxnBf"></div>
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-success w-100">
+                          Submit
+                        </button>
+
+                      </form>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>  
+            </div>
           </div>
       </div>
     </section>
+
+    <!-- Success Modal -->
+      <div class="modal fade" id="successModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+
+            <div class="modal-header bg-success text-white">
+              <h5 class="modal-title">Message Sent Successfully</h5>
+              <button type="button"
+                      class="btn-close btn-close-white"
+                      data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body text-center">
+              <p>✅ Thank you for contacting us!</p>
+              <p>We have received your message and will respond soon.</p>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button"
+                      class="btn btn-success"
+                      data-bs-dismiss="modal">Close</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
 
 
   <!-- Footer-Section -->
@@ -403,18 +482,34 @@
       const form = document.getElementById("contactForm");
 
       form.addEventListener("submit", function (event) {
-        const name_variable = document.getElementById("name").value.trim();
-        const email_variable = document.getElementById("email").value.trim();
-        const subject_variable = document.getElementById("subject").value.trim();
-        const message_variable = document.getElementById("message").value.trim();
-        const attachment_variable = document.getElementById("attachment").value.trim();
 
-        if (name_variable === "" || email_variable === "" subject_variable === "" || message_variable === "" || attachment_variable === "" ||) {
-          alert("Please fill in all fields.");
-          event.preventDefault(); // stop submit
-        } else {
-          alert("✅ Thank you! Your inquiry has been submitted successfully. We’ll contact you soon!");
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const subject = document.getElementById("subject").value.trim();
+        const message = document.getElementById("message").value.trim();
+        const recaptcha = grecaptcha.getResponse();
+
+        if (name === "" || email === "" || subject === "" || message === "") {
+          alert("Please fill in all required fields.");
+          event.preventDefault();
+          return;
         }
+
+        if (recaptcha.length === 0) {
+          alert("Please complete the reCAPTCHA verification.");
+          event.preventDefault();
+          return;
+        }
+
+        event.preventDefault();
+
+        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+        successModal.show();
+
+        setTimeout(function () {
+          form.submit();
+        }, 1500);
+
       });
     </script>
 
